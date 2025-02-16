@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id       String    @id @default(cuid())
+  userId   String    @unique
+  name     String
+  imageUrl String
+  email    String
+  servers  Server[]
+  members  Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Server {
+  id         String  @id @default(cuid())
+  serverName String
+  imageUrl   String
+  inviteCode String? @unique
+
+  profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId String?
+
+  members  Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum MemberRole {
+  GUEST
+  ADMIN
+  MODERATOR
+  KICK
+}
+
+model Member {
+  id   String     @id @default(cuid())
+  role MemberRole @default(GUEST)
+
+  server    Server?  @relation(fields: [serverId], references: [id])
+  serverId  String?
+  profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId String?
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ChannelType {
+  TEXT
+  VOICE
+  VIDEO
+}
+
+model Channel {
+  id          String      @id @default(cuid())
+  channelName String
+  channelType ChannelType @default(TEXT)
+
+  profile   Profile?  @relation(fields: [profileId], references: [id])
+  profileId String?
+  server    Server    @relation(fields: [serverId], references: [id])
+  serverId  String
+  messages  Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id      String  @id @default(cuid())
+  content String
+  fileUrl String?
+  delete  Boolean @default(false)
+
+  member    Member?  @relation(fields: [memberId], references: [id])
+  memberId  String
+  channel   Channel? @relation(fields: [channelId], references: [id])
+  channelId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
