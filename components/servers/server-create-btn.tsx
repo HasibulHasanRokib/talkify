@@ -10,9 +10,9 @@ export function ServerCreateBtn() {
     <TooltipAction label="Create server" side="right" aline="center">
       <button
         onClick={() => onOpen("create-modal")}
-        className="m-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white hover:opacity-80"
+        className="m-3 flex h-12 w-12 items-center justify-center rounded-2xl border bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/90"
       >
-        <Plus className="h-5 w-5 text-slate-300" />
+        <Plus className="h-6 w-6" />
       </button>
     </TooltipAction>
   );

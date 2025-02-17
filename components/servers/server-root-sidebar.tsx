@@ -8,6 +8,7 @@ import { ServerCreateBtn } from "./server-create-btn";
 import { ServerItem } from "./server-item";
 import { UserButton } from "@clerk/nextjs";
 import { ServerJoinBtn } from "./server-join-btn";
+import { ModeToggle } from "../mode-toggle";
 
 export async function ServerRootSidebar() {
   const profile = await CurrentProfile();
@@ -40,10 +41,11 @@ export async function ServerRootSidebar() {
               />
             </div>
           ))}
+          <ServerJoinBtn />
         </div>
-        <ServerJoinBtn />
       </ScrollArea>
       <div className="flex flex-col items-center space-y-4 py-4">
+        <ModeToggle />
         <UserButton
           afterSwitchSessionUrl="/sign-in"
           appearance={{

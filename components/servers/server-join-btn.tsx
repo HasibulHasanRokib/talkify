@@ -10,9 +10,9 @@ export function ServerJoinBtn() {
     <TooltipAction label="Join server" side="right" aline="center">
       <button
         onClick={() => {}}
-        className="m-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white hover:opacity-80"
+        className="flex h-12 w-12 items-center justify-center rounded-2xl border bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80"
       >
-        <Server className="h-5 w-5 text-slate-300" />
+        <Server className="h-5 w-5" />
       </button>
     </TooltipAction>
   );
