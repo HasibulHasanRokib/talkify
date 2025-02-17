@@ -3,6 +3,7 @@ import { db } from "@/lib/prisma";
 import { ChannelType } from "@prisma/client";
 import { redirect } from "next/navigation";
 import React from "react";
+import { ServerSidebarHeader } from "./server-sidebar-header";
 
 export async function ServerMainSidebar({ serverId }: { serverId: string }) {
   const profile = await CurrentProfile();
@@ -49,5 +50,9 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
     (member) => member.profileId !== profile.id,
   );
 
-  return <div>ServerMainSidebar</div>;
+  return (
+    <div className="w-64 border-r bg-secondary p-2">
+      <ServerSidebarHeader server={server} role={role} />
+    </div>
+  );
 }

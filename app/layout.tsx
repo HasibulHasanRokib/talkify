@@ -30,7 +30,9 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              {children}
+              <main className="md:m-2 md:rounded-md md:border-2 md:shadow">
+                {children}
+              </main>
               <Toaster />
               <ModalsProvider />
             </ThemeProvider>
