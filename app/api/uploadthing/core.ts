@@ -13,7 +13,7 @@ const handleAuth = async () => {
 export const ourFileRouter = {
   serverImage: f({
     image: {
-      maxFileSize: "1MB",
+      maxFileSize: "2MB",
       maxFileCount: 1,
     },
   })

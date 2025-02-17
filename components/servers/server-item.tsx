@@ -17,23 +17,18 @@ export function ServerItem({ id, imageUrl, name }: ServerItemProps) {
 
   return (
     <TooltipAction label={name} aline="center" side="right">
-      <button type="button" onClick={() => router.push(`/server/${id}`)}>
-        <div
-          className={cn(
-            "relative mx-3 flex h-10 w-10 overflow-hidden rounded-2xl transition-all hover:ring-2 hover:ring-primary hover:ring-offset-1",
-            params?.serverId === id
-              ? "rounded-2xl ring-2 ring-primary ring-offset-2"
-              : "ring-transparent",
-          )}
-        >
-          <Image
-            fill
-            src={imageUrl}
-            alt="image"
-            className="rounded-2xl object-cover"
-          />
-        </div>
-      </button>
+      <div
+        className={cn(
+          "relative h-12 w-12 overflow-hidden border shadow-md transition-all hover:rounded-2xl",
+          params?.serverId === id
+            ? "rounded-2xl ring-2 ring-primary"
+            : "rounded-full",
+        )}
+      >
+        <button type="button" onClick={() => router.push(`/servers/${id}`)}>
+          <Image fill src={imageUrl} alt="image" className="object-cover" />
+        </button>
+      </div>
     </TooltipAction>
   );
 }

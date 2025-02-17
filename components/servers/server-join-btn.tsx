@@ -1,18 +1,18 @@
 "use client";
 import React from "react";
-import { Plus } from "lucide-react";
+import { Server } from "lucide-react";
 import { TooltipAction } from "../tooltip-action";
 import { useModal } from "@/hooks/use-modal";
 
-export function ServerCreateBtn() {
+export function ServerJoinBtn() {
   const { onOpen } = useModal();
   return (
-    <TooltipAction label="Create server" side="right" aline="center">
+    <TooltipAction label="Join server" side="right" aline="center">
       <button
-        onClick={() => onOpen("create-modal")}
+        onClick={() => {}}
         className="m-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white hover:opacity-80"
       >
-        <Plus className="h-5 w-5 text-slate-300" />
+        <Server className="h-5 w-5 text-slate-300" />
       </button>
     </TooltipAction>
   );

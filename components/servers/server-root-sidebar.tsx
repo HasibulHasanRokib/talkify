@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ServerCreateBtn } from "./server-create-btn";
 import { ServerItem } from "./server-item";
 import { UserButton } from "@clerk/nextjs";
+import { ServerJoinBtn } from "./server-join-btn";
 
 export async function ServerRootSidebar() {
   const profile = await CurrentProfile();
@@ -29,15 +30,18 @@ export async function ServerRootSidebar() {
       <ServerCreateBtn />
       <Separator />
       <ScrollArea className="flex-grow">
-        {servers.map((server) => (
-          <div key={server.id} className="py-4">
-            <ServerItem
-              id={server.id}
-              name={server.serverName}
-              imageUrl={server.imageUrl}
-            />
-          </div>
-        ))}
+        <div className="m-3 flex flex-col gap-y-2">
+          {servers.map((server) => (
+            <div key={server.id}>
+              <ServerItem
+                id={server.id}
+                name={server.serverName}
+                imageUrl={server.imageUrl}
+              />
+            </div>
+          ))}
+        </div>
+        <ServerJoinBtn />
       </ScrollArea>
       <div className="flex flex-col items-center space-y-4 py-4">
         <UserButton
