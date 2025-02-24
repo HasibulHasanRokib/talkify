@@ -73,3 +73,38 @@ export async function joinServerAction(link: string) {
     return { error: "Something went wrong!" };
   }
 }
+
+export async function deleteServerAction(serverId: string) {
+  if (!serverId) return { error: "Server id not found!" };
+  const profile = await CurrentProfile();
+  if (!profile) return { error: "Unauthorized" };
+
+  try {
+    const server = await db.server.findFirst({
+      where: {
+        id: serverId,
+        profileId: profile.id,
+      },
+    });
+
+    if (!server) {
+      return { error: "Server not found!" };
+    }
+
+    await db.server.delete({
+      where: {
+        id: server.id,
+        members: {
+          some: {
+            profileId: profile.id,
+            role: MemberRole.ADMIN,
+          },
+        },
+      },
+    });
+    return { success: "Server deleted successfully." };
+  } catch (error) {
+    console.log("Delete server error:", error);
+    return { error: "Something went wrong!" };
+  }
+}
