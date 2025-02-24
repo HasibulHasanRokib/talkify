@@ -51,7 +51,7 @@ model Member {
   server    Server?  @relation(fields: [serverId], references: [id], onDelete: Cascade)
   serverId  String
   profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  profileId String?
+  profileId String
 
   messages Message[]
 

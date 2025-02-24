@@ -261,3 +261,41 @@ export async function manageMemberAction({
     return { error: "Something went wrong!" };
   }
 }
+export async function leaveServerAction(serverId: string) {
+  if (!serverId) return { error: "Server id not found!" };
+  const profile = await CurrentProfile();
+  if (!profile) return { error: "Unauthorized" };
+
+  try {
+    const server = await db.server.findFirst({
+      where: {
+        id: serverId,
+        members: {
+          some: {
+            profileId: profile.id,
+          },
+        },
+      },
+    });
+
+    if (!server) return { error: "Server not found!" };
+
+    await db.server.update({
+      where: {
+        id: server.id,
+      },
+      data: {
+        members: {
+          deleteMany: {
+            profileId: profile.id,
+          },
+        },
+      },
+    });
+
+    return { success: "Successfully leave this server." };
+  } catch (error) {
+    console.log("Leave server error:", error);
+    return { error: "Something went wrong!" };
+  }
+}
