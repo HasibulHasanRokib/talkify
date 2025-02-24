@@ -159,3 +159,105 @@ export async function editServerAction({
     return { error: "Something went wrong!" };
   }
 }
+interface TManageMemberAction {
+  memberId: string;
+  newRole: MemberRole;
+  serverId: string;
+}
+export async function manageMemberAction({
+  memberId,
+  newRole,
+  serverId,
+}: TManageMemberAction) {
+  const profile = await CurrentProfile();
+  if (!profile) return { error: "Unauthorized" };
+  if (!serverId) return { error: "Server id not found" };
+  if (!memberId) return { error: "Member id not found" };
+
+  try {
+    const server = await db.server.findFirst({
+      where: {
+        id: serverId,
+        members: {
+          some: {
+            profileId: profile.id,
+            role: MemberRole.ADMIN,
+          },
+        },
+      },
+    });
+
+    if (!server) return { error: "Server not found!" };
+
+    if (newRole === MemberRole.KICK) {
+      const updateMember = await db.server.update({
+        where: {
+          id: server.id,
+          profileId: profile.id,
+        },
+        data: {
+          members: {
+            delete: {
+              id: memberId,
+              profileId: {
+                not: profile.id,
+              },
+            },
+          },
+        },
+        include: {
+          members: {
+            select: {
+              id: true,
+              profile: true,
+              role: true,
+            },
+          },
+        },
+      });
+      return { success: "This member kick from server.", updateMember };
+    }
+
+    const member = await db.member.findFirst({
+      where: {
+        id: memberId,
+        serverId,
+      },
+    });
+
+    if (!member) return { error: "Member not found!" };
+
+    const updateMember = await db.server.update({
+      where: {
+        id: serverId,
+        profileId: profile.id,
+      },
+      data: {
+        members: {
+          update: {
+            where: {
+              id: memberId,
+            },
+            data: {
+              role: newRole,
+            },
+          },
+        },
+      },
+      include: {
+        members: {
+          select: {
+            id: true,
+            profile: true,
+            role: true,
+          },
+        },
+      },
+    });
+
+    return { success: "User role update successful.", updateMember };
+  } catch (error) {
+    console.log("Manage member error:", error);
+    return { error: "Something went wrong!" };
+  }
+}

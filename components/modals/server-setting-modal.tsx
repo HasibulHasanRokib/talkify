@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -43,10 +43,16 @@ export default function ServerSettingModal() {
   const form = useForm<TCreateServerSchema>({
     resolver: zodResolver(createServerSchema),
     defaultValues: {
-      serverName: server?.serverName,
-      imageUrl: server?.imageUrl,
+      serverName: "",
+      imageUrl: "",
     },
   });
+  useEffect(() => {
+    if (server) {
+      form.setValue("serverName", server.serverName);
+      form.setValue("imageUrl", server.imageUrl);
+    }
+  }, [server, form]);
 
   const {
     mutate,
@@ -77,7 +83,7 @@ export default function ServerSettingModal() {
           )}
         </div>
         <DialogHeader>
-          <DialogTitle className="text-2xl">Create your server</DialogTitle>
+          <DialogTitle className="text-2xl">Edit your server</DialogTitle>
           <DialogDescription>
             Give your server a personality with a name an image. You can always
             change it later.

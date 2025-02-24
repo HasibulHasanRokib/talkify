@@ -4,6 +4,7 @@ import { InvitePeopleModal } from "./invite-people-modal";
 import { JoinServerModal } from "./join-server-modal";
 import { DeleteServerModal } from "./delete-server-modal";
 import ServerSettingModal from "./server-setting-modal";
+import { ManageMemberModal } from "./manage-member-modal";
 
 export function ModalsProvider() {
   return (
@@ -13,6 +14,7 @@ export function ModalsProvider() {
       <JoinServerModal />
       <DeleteServerModal />
       <ServerSettingModal />
+      <ManageMemberModal />
     </>
   );
 }
