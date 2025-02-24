@@ -108,3 +108,54 @@ export async function deleteServerAction(serverId: string) {
     return { error: "Something went wrong!" };
   }
 }
+
+interface TEditServerAction {
+  serverId: string;
+  values: TCreateServerSchema;
+}
+
+export async function editServerAction({
+  serverId,
+  values,
+}: TEditServerAction) {
+  try {
+    const validation = createServerSchema.safeParse(values);
+    if (!validation.success) return { error: "Invalid inputs!" };
+
+    const { imageUrl, serverName } = validation.data;
+
+    const profile = await CurrentProfile();
+
+    if (!profile) return { error: "Unauthorized" };
+
+    const server = await db.server.findFirst({
+      where: {
+        id: serverId,
+        profileId: profile.id,
+      },
+    });
+
+    if (!server) return { error: "Server not found!" };
+
+    await db.server.update({
+      where: {
+        id: server.id,
+        members: {
+          some: {
+            profileId: profile.id,
+            role: MemberRole.ADMIN,
+          },
+        },
+      },
+      data: {
+        imageUrl,
+        serverName,
+      },
+    });
+
+    return { success: "Server updated successfully." };
+  } catch (error) {
+    console.log("Edit server error:", error);
+    return { error: "Something went wrong!" };
+  }
+}
