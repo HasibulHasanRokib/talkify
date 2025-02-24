@@ -27,7 +27,7 @@ export async function ServerRootSidebar() {
   if (!servers) return redirect("/");
 
   return (
-    <div className="flex flex-col items-center justify-center border-r">
+    <div className="hidden flex-col items-center justify-center border-r md:flex">
       <ServerCreateBtn />
       <Separator />
       <ScrollArea className="flex-grow">
@@ -41,6 +41,7 @@ export async function ServerRootSidebar() {
               />
             </div>
           ))}
+
           <ServerJoinBtn />
         </div>
       </ScrollArea>

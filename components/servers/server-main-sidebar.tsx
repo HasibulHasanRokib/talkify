@@ -4,6 +4,7 @@ import { ChannelType } from "@prisma/client";
 import { redirect } from "next/navigation";
 import React from "react";
 import { ServerSidebarHeader } from "./server-sidebar-header";
+import { ServerSearchBar } from "./server-search-bar";
 
 export async function ServerMainSidebar({ serverId }: { serverId: string }) {
   const profile = await CurrentProfile();
@@ -51,8 +52,9 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
   );
 
   return (
-    <div className="w-64 border-r bg-secondary p-2">
+    <div className="hidden w-64 border-r bg-secondary p-2 md:block">
       <ServerSidebarHeader server={server} role={role} />
+      <ServerSearchBar />
     </div>
   );
 }
