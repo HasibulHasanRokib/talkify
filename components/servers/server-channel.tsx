@@ -4,7 +4,8 @@ import { Channel, ChannelType, MemberRole, Server } from "@prisma/client";
 import { TooltipAction } from "../tooltip-action";
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { useModal } from "@/hooks/use-modal";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ServerChannelProps {
   channel: Channel;
@@ -21,12 +22,16 @@ const IconMap = {
 export function ServerChannel({ channel, server, role }: ServerChannelProps) {
   const { onOpen } = useModal();
   const router = useRouter();
+  const params = useParams();
 
   return (
-    <div className="px-2">
+    <div>
       <button
         type="button"
-        className="group flex w-full items-center justify-between rounded-md px-3 py-2 hover:bg-gray-200"
+        className={cn(
+          "group flex w-full items-center justify-between rounded-md px-3 py-2 hover:bg-gray-200",
+          params.channelId === channel.id ? "bg-gray-200" : "",
+        )}
         onClick={() =>
           router.push(`/servers/${server?.id}/channels/${channel.id}`)
         }

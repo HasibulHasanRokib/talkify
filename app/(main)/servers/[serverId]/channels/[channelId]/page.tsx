@@ -1,4 +1,6 @@
 import { ChatHerder } from "@/components/chat/chat-herder";
+import { ChatInput } from "@/components/chat/chat-input";
+import { ChatMessage } from "@/components/chat/chat-message";
 import { CurrentProfile } from "@/lib/auth/current-profile";
 import { db } from "@/lib/prisma";
 import { redirect } from "next/navigation";
@@ -28,12 +30,14 @@ export default async function ChannelIdPage({
 
   if (!channel || !member) return redirect("/");
   return (
-    <div className="flex flex-col">
+    <div className="flex h-screen flex-col md:h-full">
       <ChatHerder
         name={channel.channelName}
         type="channel"
         serverId={channel.serverId}
       />
+      <ChatMessage name={channel.channelName} type="channel" />
+      <ChatInput />
     </div>
   );
 }

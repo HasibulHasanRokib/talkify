@@ -17,7 +17,7 @@ const RoleMap = {
 export function ServerMember({ member, server }: ServerMemberProps) {
   return (
     <Link href={`/servers/${server.id}/conversations/${member.id}`}>
-      <div className="my-3 flex items-center gap-x-2 px-3 py-1">
+      <div className="flex items-center gap-x-2 px-2">
         <UserAvatar url={member.profile?.imageUrl} className="h-7 w-7" />
         <p className="flex items-center gap-x-1 text-sm text-muted-foreground">
           {member.profile?.name} {RoleMap[member.role]}

@@ -70,11 +70,11 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
   );
 
   return (
-    <div className="flex h-full flex-col gap-y-1 border-r bg-secondary">
+    <div className="flex h-full flex-col gap-y-1 border-r bg-secondary p-2">
       <ServerSidebarHeader server={server} role={role} />
       <Separator />
       <ScrollArea>
-        <div className="m-1">
+        <div>
           <ServerSearchBar
             data={[
               {
@@ -117,7 +117,7 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
           />
         </div>
       </ScrollArea>
-      <ScrollArea>
+      <ScrollArea className="px-2">
         {!!textChannels.length && (
           <div>
             <ServerSection
@@ -176,13 +176,14 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
           </div>
         )}
         {!!members.length && (
-          <div>
+          <div className="space-y-2">
             <ServerSection
               label="Members "
               sectionType="member"
               role={role}
               server={server}
             />
+
             {members.map((member) => (
               <ServerMember
                 key={member.profileId}

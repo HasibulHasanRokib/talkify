@@ -16,7 +16,7 @@ export function ChatHerder({
   imageUrl,
 }: ChatHerderProps) {
   return (
-    <div className="flex w-full items-center gap-x-3 border-b-2 px-3 py-4">
+    <div className="flex w-full items-center gap-x-3 border-b px-3 py-4">
       <MobileToggle serverId={serverId} />
       <span className="flex items-center gap-x-1">
         {type === "channel" && <Hash className="h-6 w-6" />}
