@@ -27,7 +27,7 @@ model Server {
   imageUrl   String
   inviteCode String? @unique
 
-  profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String
 
   members  Member[]

@@ -19,10 +19,7 @@ export default function RootLayout({
     <ClerkProvider>
       <Providers>
         <html lang="en">
-          <body
-            data-new-gr-c-s-check-loaded="14.1223.0"
-            data-gr-ext-installed=""
-          >
+          <body>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"

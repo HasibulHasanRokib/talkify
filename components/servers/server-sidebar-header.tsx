@@ -44,7 +44,7 @@ export function ServerSidebarHeader({ server, role }: SidebarHeaderProps) {
           variant={"outline"}
           className="w-full hover:bg-background focus-visible:ring-0"
         >
-          <p className="font-semibold capitalize">{server.serverName}</p>
+          <p className="capitalize">{server.serverName}</p>
           <ChevronDown className="ml-auto h-5 w-5 text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>
