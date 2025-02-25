@@ -35,7 +35,6 @@ export function DeleteChannelModal() {
           variant: "default",
         });
         router.refresh();
-        onClose();
       } else if (data?.error) {
         toast({
           title: "Error",

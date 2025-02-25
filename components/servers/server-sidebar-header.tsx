@@ -41,7 +41,7 @@ export function ServerSidebarHeader({ server, role }: SidebarHeaderProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="focus:outline-none">
         <Button
-          variant={"outline"}
+          variant={"ghost"}
           className="w-full hover:bg-background focus-visible:ring-0"
         >
           <p className="capitalize">{server.serverName}</p>

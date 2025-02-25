@@ -86,9 +86,9 @@ model Message {
   fileUrl String?
   delete  Boolean @default(false)
 
-  member    Member?  @relation(fields: [memberId], references: [id])
+  member    Member?  @relation(fields: [memberId], references: [id], onDelete: Cascade)
   memberId  String
-  channel   Channel? @relation(fields: [channelId], references: [id])
+  channel   Channel? @relation(fields: [channelId], references: [id], onDelete: Cascade)
   channelId String
 
   createdAt DateTime @default(now())

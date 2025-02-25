@@ -10,6 +10,7 @@ import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
 import { ServerSection } from "./server-section";
 import { ServerChannel } from "./server-channel";
 import { ServerMember } from "./server-member";
+import { Separator } from "../ui/separator";
 
 const IconMap = {
   [ChannelType.TEXT]: <Hash className="h-5 w-5" />,
@@ -69,10 +70,11 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
   );
 
   return (
-    <div className="hidden w-64 border-r bg-secondary p-2 md:block">
+    <div className="flex h-screen w-full flex-col gap-y-1 border-r bg-secondary md:h-full">
       <ServerSidebarHeader server={server} role={role} />
-      <ScrollArea className="flex-1">
-        <div className="mt-1">
+      <Separator />
+      <ScrollArea>
+        <div className="m-1">
           <ServerSearchBar
             data={[
               {
@@ -182,7 +184,11 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
               server={server}
             />
             {members.map((member) => (
-              <ServerMember key={member.profileId} member={member} />
+              <ServerMember
+                key={member.profileId}
+                member={member}
+                server={server}
+              />
             ))}
           </div>
         )}
