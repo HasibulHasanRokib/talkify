@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import {
-  ChevronDown,
   LogOut,
+  MoreVertical,
   PlusCircle,
   Settings,
   Trash,
@@ -45,10 +45,10 @@ export function ServerSidebarHeader({ server, role }: SidebarHeaderProps) {
           className="w-full hover:bg-background focus-visible:ring-0"
         >
           <p className="capitalize">{server.serverName}</p>
-          <ChevronDown className="ml-auto h-5 w-5 text-muted-foreground" />
+          <MoreVertical className="ml-auto h-5 w-5 text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 text-xs">
+      <DropdownMenuContent className="w-full text-xs" align="end">
         {isModerator && (
           <>
             <DropdownMenuItem

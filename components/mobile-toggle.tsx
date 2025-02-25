@@ -16,20 +16,20 @@ import { ServerMainSidebar } from "./servers/server-main-sidebar";
 
 export function MobileToggle({ serverId }: { serverId: string }) {
   return (
-    <div>
+    <div className="block md:hidden">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" className="md:hidden">
+          <Button variant="outline">
             <Menu />
           </Button>
         </SheetTrigger>
-        <SheetContent side={"left"} className="gap-0 p-0">
+        <SheetContent side={"left"} className="flex gap-0 p-0">
           <SheetHeader className="hidden">
             <SheetTitle>Mobile toggle</SheetTitle>
             <SheetDescription>Click here.</SheetDescription>
           </SheetHeader>
-          <div className="flex min-h-screen">
-            <ServerRootSidebar />
+          <ServerRootSidebar />
+          <div className="flex-grow">
             <ServerMainSidebar serverId={serverId} />
           </div>
         </SheetContent>

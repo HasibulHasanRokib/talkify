@@ -30,9 +30,9 @@ export default async function ServerIdLayout({
   if (!server) return redirect("/");
   return (
     <div className="h-screen grid-cols-4 md:grid">
-      <div className="hidden grid-cols-5 md:grid">
+      <div className="hidden md:flex">
         <ServerRootSidebar />
-        <div className="col-span-4">
+        <div className="flex-grow">
           <ServerMainSidebar serverId={serverId} />
         </div>
       </div>

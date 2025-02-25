@@ -70,7 +70,7 @@ export async function ServerMainSidebar({ serverId }: { serverId: string }) {
   );
 
   return (
-    <div className="flex h-screen w-full flex-col gap-y-1 border-r bg-secondary md:h-full">
+    <div className="flex h-full flex-col gap-y-1 border-r bg-secondary">
       <ServerSidebarHeader server={server} role={role} />
       <Separator />
       <ScrollArea>

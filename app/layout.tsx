@@ -20,7 +20,10 @@ export default function RootLayout({
     <ClerkProvider>
       <Providers>
         <html lang="en" suppressHydrationWarning>
-          <body>
+          <body
+            data-new-gr-c-s-check-loaded="14.1223.0"
+            data-gr-ext-installed=""
+          >
             <ThemeProvider
               attribute="class"
               defaultTheme="system"

@@ -16,7 +16,6 @@ export default async function ChannelIdPage({
   const channel = await db.channel.findUnique({
     where: {
       id: channelId,
-      profileId: profile.id,
     },
   });
 
