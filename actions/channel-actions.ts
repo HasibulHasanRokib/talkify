@@ -2,7 +2,7 @@
 
 import { CurrentProfile } from "@/lib/auth/current-profile";
 import { db } from "@/lib/prisma";
-import { createChannelSchema } from "@/lib/zod-schema";
+import { createChannelSchema, TCreateChannelSchema } from "@/lib/zod-schema";
 
 import { ChannelType, MemberRole } from "@prisma/client";
 
@@ -62,14 +62,51 @@ export async function createChannelAction({
 
 // Edit channel:
 interface EditChannelActionProps {
-  channelName: string;
-  type: ChannelType;
+  values: TCreateChannelSchema;
   serverId: string;
   channelId: string;
 }
 
-export async function editChannelAction(values: EditChannelActionProps) {
+export async function editChannelAction({
+  values,
+  serverId,
+  channelId,
+}: EditChannelActionProps) {
+  const validation = createChannelSchema.safeParse(values);
+  if (!validation.success) {
+    return { error: "Invalid data" };
+  }
+  const { channelName, type } = validation.data;
+  const profile = await CurrentProfile();
+  if (!profile) return { error: "Unauthorized" };
+  if (!serverId) return { error: "Server not found" };
+  if (!channelId) return { error: "Channel not found" };
+
   try {
+    await db.server.update({
+      where: {
+        id: serverId,
+        profileId: profile.id,
+        members: {
+          some: {
+            role: MemberRole.ADMIN,
+          },
+        },
+      },
+      data: {
+        channels: {
+          update: {
+            where: {
+              id: channelId,
+            },
+            data: {
+              channelName,
+              channelType: type,
+            },
+          },
+        },
+      },
+    });
     return { success: "Channel information update successful" };
   } catch (error) {
     console.log(error);
@@ -84,5 +121,35 @@ interface DeleteChannelActionProps {
 }
 
 export async function deleteChannelAction(values: DeleteChannelActionProps) {
-  return true;
+  const { serverId, channelId } = values;
+
+  const profile = await CurrentProfile();
+  if (!profile) return { error: "Unauthorized" };
+  if (!serverId) return { error: "Server not found" };
+  if (!channelId) return { error: "Channel not found" };
+  try {
+    await db.server.update({
+      where: {
+        id: serverId,
+
+        members: {
+          some: {
+            profileId: profile.id,
+            role: MemberRole.ADMIN,
+          },
+        },
+      },
+      data: {
+        channels: {
+          delete: {
+            id: channelId,
+          },
+        },
+      },
+    });
+    return { success: "Channel deleted successfully" };
+  } catch (error) {
+    console.log("Delete channel error:", error);
+    return { error: "Something went wrong." };
+  }
 }
