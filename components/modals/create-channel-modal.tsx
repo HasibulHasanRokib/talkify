@@ -75,6 +75,7 @@ export function CreateChannelModal() {
     onSuccess: (data) => {
       if (data.success) {
         router.refresh();
+        form.reset();
         setShowMessage(true);
         setTimeout(() => {
           setShowMessage(false);

@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <Providers>
-        <html lang="en">
-          <body>
+    <html lang="en">
+      <body>
+        <ClerkProvider>
+          <Providers>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -32,9 +32,9 @@ export default function RootLayout({
               <Toaster />
               <ModalsProvider />
             </ThemeProvider>
-          </body>
-        </html>
-      </Providers>
-    </ClerkProvider>
+          </Providers>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
