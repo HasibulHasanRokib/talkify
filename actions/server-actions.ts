@@ -60,14 +60,25 @@ export async function joinServerAction(link: string) {
 
     if (!server) return { error: "Invalid link!" };
 
-    await db.member.create({
-      data: {
+    const profileExist = await db.member.findFirst({
+      where: {
         profileId: profile.id,
         serverId: server.id,
       },
     });
 
-    return { success: "Server joined successfully.", server };
+    if (profileExist) {
+      return { error: "This profile already in server" };
+    } else {
+      await db.member.create({
+        data: {
+          profileId: profile.id,
+          serverId: server.id,
+        },
+      });
+
+      return { success: "Server joined successfully.", server };
+    }
   } catch (error) {
     console.log("Join server error:", error);
     return { error: "Something went wrong!" };

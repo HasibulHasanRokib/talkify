@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 
 export function JoinServerModal() {
   const [link, setLink] = useState("");
-  const [showMessage, setShoMessage] = useState(false);
+
   const { type, isOpen, onClose } = useModal();
 
   const router = useRouter();
@@ -32,12 +32,7 @@ export function JoinServerModal() {
     mutationFn: joinServerAction,
     onSuccess: (data) => {
       if (data.success) {
-        router.push(`/servers/${data.server?.id}`);
-        setShoMessage(true);
-        setTimeout(() => {
-          onClose();
-          setShoMessage(false);
-        }, 2000);
+        router.push(`/servers/${data.server.id}`);
       }
     },
   });
@@ -51,10 +46,8 @@ export function JoinServerModal() {
     <Dialog open={isModalOpen} onOpenChange={() => onClose()}>
       <DialogContent className="sm:max-w-md">
         <div className="mt-3">
-          {showMessage && data?.error && <ErrorMessage message={data.error} />}
-          {showMessage && data?.success && (
-            <SuccessMessage message={data.success} />
-          )}
+          {data?.error && <ErrorMessage message={data.error} />}
+          {data?.success && <SuccessMessage message={data.success} />}
         </div>
         <DialogHeader>
           <DialogTitle>Join server link</DialogTitle>

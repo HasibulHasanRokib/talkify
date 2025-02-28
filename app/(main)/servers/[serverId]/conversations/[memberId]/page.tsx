@@ -26,6 +26,7 @@ export default async function MemberIdPage({
         type="conversation"
         imageUrl={member?.profile?.imageUrl}
         serverId={serverId}
+        member={member}
       />
     </div>
   );
