@@ -9,8 +9,8 @@ export function ChatWelcome({ name, type }: ChatWelcomeProps) {
   return (
     <div className="mb-4 space-y-2">
       {type === "channel" && (
-        <div className="flex h-[75px] w-[75px] items-center justify-center rounded-full bg-zinc-500 dark:bg-zinc-700">
-          <Hash className="h-12 w-12 text-white" />
+        <div className="flex h-[75px] w-[75px] items-center justify-center rounded-full bg-secondary">
+          <Hash className="h-12 w-12" />
         </div>
       )}
       <p className="text-xl font-bold md:text-3xl">

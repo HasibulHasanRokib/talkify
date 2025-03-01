@@ -102,7 +102,18 @@ export async function deleteServerAction(serverId: string) {
       return { error: "Server not found!" };
     }
 
-    await db.server.delete({
+    await db.member.deleteMany({
+      where: {
+        serverId: server.id,
+      },
+    });
+    await db.channel.deleteMany({
+      where: {
+        serverId: server.id,
+      },
+    });
+
+    await db.server.deleteMany({
       where: {
         id: server.id,
         members: {

@@ -27,7 +27,7 @@ model Server {
   imageUrl   String
   inviteCode String? @unique
 
-  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profile   Profile? @relation(fields: [profileId], references: [id])
   profileId String
 
   members  Member[]
@@ -70,9 +70,9 @@ model Channel {
   channelName String
   channelType ChannelType @default(TEXT)
 
-  profile   Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  profileId String?
-  server    Server    @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  profile   Profile?  @relation(fields: [profileId], references: [id])
+  profileId String
+  server    Server?   @relation(fields: [serverId], references: [id])
   serverId  String
   messages  Message[]
 

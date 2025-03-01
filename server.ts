@@ -38,6 +38,48 @@ app.prepare().then(() => {
       io.emit("get-users", onlineUsers);
     });
 
+    //join-room
+    socket.on("join-room", async (channelId: string) => {
+      socket.join(channelId);
+    });
+
+    // Handle sending messages
+    socket.on(
+      "send_message",
+      async (data: {
+        content: string;
+        memberId: string;
+        channelId: string;
+      }) => {
+        console.log(data);
+        const { content, channelId, memberId } = data;
+        if (!content || !channelId || !memberId) {
+          return;
+        }
+        try {
+          await db.message.create({
+            data: {
+              content,
+              channelId,
+              memberId,
+            },
+            include: {
+              member: {
+                include: {
+                  profile: true,
+                },
+              },
+            },
+          });
+          console.log(
+            `Message saved from ${memberId} in channel ${channelId}: ${content}`,
+          );
+        } catch (error) {
+          console.error("Error saving message:", error);
+        }
+      },
+    );
+
     //filter active user
     socket.on("disconnect", () => {
       onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
