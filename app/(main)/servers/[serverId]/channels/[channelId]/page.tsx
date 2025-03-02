@@ -1,9 +1,11 @@
 import { ChatHerder } from "@/components/chat/chat-herder";
 import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessage } from "@/components/chat/chat-message";
+import { MediaRoom } from "@/components/media-room";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CurrentProfile } from "@/lib/auth/current-profile";
 import { db } from "@/lib/prisma";
+import { ChannelType } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export default async function ChannelIdPage({
@@ -39,21 +41,30 @@ export default async function ChannelIdPage({
         serverId={channel.serverId}
       />
 
-      {/* Main chat area */}
-      <div className="relative flex-1 overflow-hidden">
-        <ScrollArea className="absolute h-full w-full">
-          <div className="flex flex-col p-4">
-            <ChatMessage channelId={channelId} profileId={profile.id} />
+      {channel.channelType === ChannelType.TEXT && (
+        <>
+          <div className="relative flex-1 overflow-hidden">
+            <ScrollArea className="absolute h-full w-full">
+              <div className="flex flex-col p-4">
+                <ChatMessage channelId={channelId} profileId={profile.id} />
+              </div>
+            </ScrollArea>
           </div>
-        </ScrollArea>
-      </div>
 
-      <ChatInput
-        channelId={channel.id}
-        memberId={member.id}
-        name={channel.channelName}
-        serverId={serverId}
-      />
+          <ChatInput
+            channelId={channel.id}
+            memberId={member.id}
+            name={channel.channelName}
+            serverId={serverId}
+          />
+        </>
+      )}
+      {channel.channelType === ChannelType.VIDEO && (
+        <MediaRoom chatId={channel.id} video={true} audio={true} />
+      )}
+      {channel.channelType === ChannelType.VOICE && (
+        <MediaRoom chatId={channel.id} video={false} audio={true} />
+      )}
     </div>
   );
 }

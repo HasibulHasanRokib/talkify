@@ -33,7 +33,7 @@ export function ChatMessage({
 
   if (status === "pending")
     return (
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="flex flex-1 items-center justify-center">
         <Spinner text="Loading..." />
       </div>
     );
