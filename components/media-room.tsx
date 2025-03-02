@@ -62,16 +62,18 @@ export function MediaRoom({
   }
 
   return (
-    <LiveKitRoom
-      video={video}
-      audio={audio}
-      token={token}
-      serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-      data-lk-theme="default"
-      connectOptions={{ autoSubscribe: true }}
-    >
-      <VideoConference />
-      <RoomAudioRenderer />
-    </LiveKitRoom>
+    <>
+      <LiveKitRoom
+        video={video}
+        audio={audio}
+        token={token}
+        serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
+        data-lk-theme="default"
+        connectOptions={{ autoSubscribe: true }}
+      >
+        <VideoConference />
+        <RoomAudioRenderer />
+      </LiveKitRoom>
+    </>
   );
 }

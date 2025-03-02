@@ -29,14 +29,14 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
       <button
         type="button"
         className={cn(
-          "group flex w-full items-center justify-between rounded-md px-3 py-2 hover:bg-gray-200",
-          params.channelId === channel.id ? "bg-gray-200" : "",
+          "group flex w-full items-center justify-between rounded-md px-3 py-2 hover:bg-background",
+          params.channelId === channel.id ? "bg-background" : "",
         )}
         onClick={() =>
           router.push(`/servers/${server?.id}/channels/${channel.id}`)
         }
       >
-        <p className="flex items-center gap-x-2 text-sm text-gray-700">
+        <p className="flex items-center gap-x-2 text-xs">
           {IconMap[channel.channelType]}
           {channel.channelName}
         </p>

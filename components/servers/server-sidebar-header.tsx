@@ -40,10 +40,7 @@ export function ServerSidebarHeader({ server, role }: SidebarHeaderProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="focus:outline-none">
-        <Button
-          variant={"ghost"}
-          className="w-full hover:bg-background focus-visible:ring-0"
-        >
+        <Button variant={"ghost"} className="w-full focus-visible:ring-0">
           <p className="capitalize">{server.serverName}</p>
           <MoreVertical className="ml-auto h-5 w-5 text-muted-foreground" />
         </Button>

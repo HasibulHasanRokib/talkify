@@ -40,7 +40,6 @@ export default async function ChannelIdPage({
         type="channel"
         serverId={channel.serverId}
       />
-
       {channel.channelType === ChannelType.TEXT && (
         <>
           <div className="relative flex-1 overflow-hidden">
@@ -59,11 +58,21 @@ export default async function ChannelIdPage({
           />
         </>
       )}
+
       {channel.channelType === ChannelType.VIDEO && (
-        <MediaRoom chatId={channel.id} video={true} audio={true} />
+        <div className="relative flex-1 overflow-hidden">
+          <div className="absolute h-full w-full">
+            <MediaRoom chatId={channel.id} video={true} audio={true} />
+          </div>
+        </div>
       )}
+
       {channel.channelType === ChannelType.VOICE && (
-        <MediaRoom chatId={channel.id} video={false} audio={true} />
+        <div className="relative flex-1 overflow-hidden">
+          <div className="absolute h-full w-full">
+            <MediaRoom chatId={channel.id} video={false} audio={true} />
+          </div>
+        </div>
       )}
     </div>
   );

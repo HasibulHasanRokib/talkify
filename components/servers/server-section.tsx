@@ -33,7 +33,7 @@ export function ServerSection({
   const { onOpen } = useModal();
   return (
     <div className="flex items-center justify-between p-2">
-      <p>{label}</p>
+      <p className="text-sm">{label}</p>
       {role !== MemberRole.GUEST && sectionType === "channel" && (
         <TooltipAction label="Create Channel">
           <button

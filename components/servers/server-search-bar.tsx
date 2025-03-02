@@ -8,9 +8,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandShortcut,
 } from "@/components/ui/command";
-import { Button } from "../ui/button";
+import { DialogTitle } from "../ui/dialog";
 
 interface ServerSearchBarProps {
   data: {
@@ -38,20 +37,23 @@ export function ServerSearchBar({ data }: ServerSearchBarProps) {
     return () => document.removeEventListener("keydown", down);
   }, []);
   return (
-    <div>
-      <Button
-        variant={"outline"}
-        className="w-full hover:bg-background focus-visible:ring-0"
-        type="button"
+    <>
+      <div
+        className="my-1 flex items-center space-x-2 px-3 py-1"
         onClick={() => setOpen(true)}
       >
-        <span className="flex items-center space-x-2">
-          <Search className="h-4 w-4" />
-          <p className="text-sm">Search</p>
-        </span>
-        <CommandShortcut>⌘S</CommandShortcut>
-      </Button>
+        <Search className="h-4 w-4" />
+        <div className="flex w-full items-center justify-between">
+          <p className="text-sm text-muted-foreground">Search</p>
+          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+            <span className="text-xs">⌘</span>S
+          </kbd>
+        </div>
+      </div>
+
       <CommandDialog open={open} onOpenChange={setOpen}>
+        <DialogTitle className="hidden">Search Dialog</DialogTitle>
+
         <CommandInput placeholder="Search channels  or members..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -75,6 +77,6 @@ export function ServerSearchBar({ data }: ServerSearchBarProps) {
           })}
         </CommandList>
       </CommandDialog>
-    </div>
+    </>
   );
 }

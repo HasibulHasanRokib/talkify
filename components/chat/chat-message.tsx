@@ -2,11 +2,12 @@
 import { messageAction } from "@/actions/message-actions";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { Button, buttonVariants } from "../ui/button";
+import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";
 import { cn } from "@/lib/utils";
 import { Spinner } from "../spinner";
 import { ErrorMessage } from "../error-message";
+import { Trash } from "lucide-react";
 
 export function ChatMessage({
   channelId,
@@ -76,21 +77,18 @@ export function ChatMessage({
                         url={message.member?.profile?.imageUrl}
                       />
                     )}
-                    <div className="flex flex-col items-center gap-1">
-                      <div
-                        className={cn(
-                          buttonVariants({
-                            variant: isCurrentUser ? "default" : "outline",
-                          }),
-                          isCurrentUser
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted",
-                        )}
-                      >
+                    <div
+                      className={cn(
+                        "group flex items-center gap-x-1 transition-all",
+                        isCurrentUser ? "flex-row-reverse" : "",
+                      )}
+                    >
+                      <div className="rounded-full border bg-muted p-2 text-sm">
                         {message.content}
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        {message.createdAt.toLocaleTimeString()}
+                      <p className="hidden items-center gap-x-2 text-xs group-hover:flex">
+                        {message.createdAt.toLocaleDateString()}
+                        <Trash className="h-4 w-4 text-destructive" />
                       </p>
                     </div>
                   </div>
